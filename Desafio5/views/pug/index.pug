@@ -1,0 +1,19 @@
+html 
+    head 
+        title= "Tabla de Datos Pug"
+    
+    body 
+style.
+  h1{
+    color:brown;
+  } 
+h1 Tus Productos con Pug son:
+ul(style='display:flex; justify-content:space-around')
+  li Titulo
+  li Precio
+  li Imagen
+ul(style='display:flex; justify-content:space-around')
+  li=title 
+  li=price
+  li
+    img(src=urlImg)  

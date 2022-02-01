@@ -1,0 +1,12 @@
+<h2>Ingrese el nuevo Producto: Desde Ejs</h2>
+<form class="prod-form" id="add" action="/productos" method="POST" reset>
+    <div class="d-flex flex-column align-items-center" style="width: 50%; margin-left: 25%;">
+        Ingrese el nombre de producto:
+        <input type="text" name="title" class="form-control" placeholder="Titulo" style="margin-bottom: 10px;" required>
+        Ingrese su precio:
+        <input type="number" name="price" class="form-control" placeholder="Precio" style="margin-bottom: 10px;" required>
+        ingrese una imagen:
+        <input type="text" name="urlImg" class="form-control" placeholder="url de la imagen" style="margin-bottom: 10px;" required>
+        <button type="submit" class="btn btn-primary">Ingresar Producto</button>
+    </div>
+</form>

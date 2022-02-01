@@ -1,0 +1,28 @@
+<div>
+    <h2>Tus Productos Agregados son:</h2>
+    <table class="table table-bordered border-primary table-sm">
+        <% if(productos.length> 0){%>
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Imagen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for( producto of productos ) { %>
+                    <tr class="table-info">
+                        <th style="font-size: 25px; padding-top: 3%;">
+                            <%= producto.title %>
+                        </th>
+                        <th style="font-size: 25px; padding-top: 3%;">$ <%= producto.price %>
+                        </th>
+                        <th><img src="<%= producto.urlImg %>"></th>
+                    </tr>
+                    <% } %>
+            </tbody>
+    </table>
+    <% }else{ %>
+        <p class="alert alert-danger">No agregaste ningun producto</p>
+        <% } %>
+</div>
