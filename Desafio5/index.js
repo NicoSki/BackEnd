@@ -80,4 +80,4 @@ app.listen(PORT, error => {
 
 
 //ELECCION FINAL:
-//Particularmente eligiria EJS ya que da una gran dinamica a la hora de codear, por otro lado es sencillo para cualquier tipo de programador ya sea principiante o avanzado, su unica interferencia son los signos a la hora de entrelazar el codigo, pero quitando eso es el que eligiria para utilizar en mi proyecto
+//Particularmente eligiria EJS ya que da una gran dinamica a la hora de codear, por otro lado es sencillo para cualquier tipo de programador ya sea principiante o avanzado, su unica interferencia son los signos a la hora de entrelazar el codigo, pero con un poco de practica se soluciona
