@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--Esto es para que conecte con socket-->
+    <script src="./socket.io/socket.io.js"></script>
+    <title>Usando WebSocket</title>
+    <!-- Estilos -->
+    <style>
+        /* Formulario */
+        .container {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #formulario form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20%;
+            text-align: center;
+        }
+
+        #formulario form input {
+            margin: 5%;
+        }
+
+        /* Tabla */
+        table {
+            text-align: center;
+        }
+
+        table tbody tr th img {
+            max-width: 75%;
+        }
+
+        /*Area de chat*/
+
+        #parrafo {
+            margin-top: 5%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Lo que se reflaja en este archivo hace referencia al cliente -->
+    <div class="container">
+        <div id="formulario">
+            <form id="table_container">
+                Nombre del Producto:
+                <input id="nombre" type="text" name="name" placeholder="Ingrese el Producto" required>
+                Precio del Producto:
+                <input id="precio" type="number" name="price" placeholder="Ingrese su Valor" required>
+                Url de la Imagen del Producto:
+                <input id="url_img" type="text" name="img" placeholder="Ingrese la Url" required>
+                <input type="submit" value="Enviar">
+            </form>
+
+            <table class="table table-bordered border-primary table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Imagen</th>
+                    </tr>
+                </thead>
+
+                <tbody id="contenido">
+                    <!-- aca es donde se van a agregar los productos -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="chat">
+            <h1>Area de Chat</h1>
+            <p id="parrafo"></p>
+
+            <form id="chat_container">
+                <input type="email" name="email" id="email" placeholder="Ingrese su E-mail" required>
+                <input id="mensaje" type="text" name="message" placeholder="Ingresa tu mensaje" required>
+                <input type="submit" value="Enviar Mensaje">
+            </form>
+        </div>
+    </div>
+
+
+
+    <script>
+        // creo la variable para vincular
+        let socket = new io();
+
+
+        /*------------
+        AREA DE CHAT
+        -------------*/
+        //creo las logica y variables para los mensajes:
+        let mensaje = document.getElementById("mensaje");
+        let parrafo = document.getElementById("parrafo");
+        let formulario_chat = document.getElementById("chat_container");
+
+        formulario_chat.addEventListener("submit", e => {
+            e.preventDefault();
+            //creo el objeto que va a contener el mensaje
+            let usuario = {
+                email: e.target[0].value,
+                message: e.target[1].value
+            }
+
+            //creo le emit
+            socket.emit("desde_cliente", usuario);
+            //con esta funcion reseteo el formulario
+            formulario_chat.reset()
+        })
+
+        socket.on("desde_servidor", data => {
+            console.log("Desde el Cliente", data);
+            fill_message(data);
+
+        });
+
+        //creo el init
+        socket.on("init", data => {
+            fill_message(data);
+        });
+
+        //creo la funcion del llenado del mensaje aparte
+        function fill_message(data) {
+            let mensaje_html = ``;
+            for (const sms of data) {
+                mensaje_html += `<b style="color:blue;">${sms.email}</b> / <i style="color:brown;">${sms.date}</i> : <p style="color:green;font-style: italic;">${sms.message}</p>  <br>`;
+            }
+            parrafo.innerHTML = mensaje_html;
+        }
+
+
+        /*----------------
+        TABLA DE PRODUCTOS
+        ----------------*/
+        //creo las logica y variables para la tabla de productos:
+        let formulario_tabla = document.getElementById("table_container");
+        let producto_nombre = document.getElementById("nombre");
+        let producto_precio = document.getElementById("precio");
+        let producto_imagen = document.getElementById("url_img");
+        let producto_contenido = document.getElementById("contenido");
+
+
+        //creo la funcion:
+        formulario_tabla.addEventListener("submit", e => {
+            e.preventDefault()
+            //creo el objeto que se va a agregar a la tabla
+            let producto = {
+                name: e.target[0].value,
+                price: e.target[1].value,
+                img: e.target[2].value
+            }
+
+            //creo el emit:
+            socket.emit("tabla", producto)
+            //voy al index.js y agrego el on en connection
+
+            //con esta funcion reseteo el formulario
+            formulario_tabla.reset()
+        })
+
+
+        //creo la funcion on de los productos:
+        socket.on("tabla", data_prod => {
+            tabla_html(data_prod)
+            //por ultimo vuelvo al index.js y creo el io.emit en connection
+        })
+
+        //creo el init1
+        socket.on("init1", data_prod => {
+            tabla_html(data_prod);
+        });
+
+     
+
+        //creo el html como una funcion y se lo agrego al on
+        function tabla_html(data_prod) {
+            let tabla_contenido = ``;
+
+            for (const elemento of data_prod) {
+                tabla_contenido += `
+                    <tr>
+                        <th>${elemento.name}</th>
+                        <th>$ ${elemento.price}</th>
+                        <th><img src=${elemento.img}></th>
+                    </tr>
+                    `;
+            }
+            producto_contenido.innerHTML = tabla_contenido
+        }
+
+
+
+    </script>
+</body>
+
+</html>
