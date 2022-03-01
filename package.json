@@ -11,12 +11,17 @@
   "author": "Nicolas Skibicki",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
     "express-handlebars": "^6.0.2",
+    "knex": "^0.95.15",
     "moment": "^2.29.1",
+    "mysql": "^2.18.1",
     "nodemon": "^2.0.15",
     "pug": "^3.0.2",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.4.1",
+    "sqlite3": "^5.0.2"
   }
 }

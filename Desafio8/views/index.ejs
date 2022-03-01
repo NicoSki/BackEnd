@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Formularios</title>
+</head>
+
+<body class="bg-dark d-flex justify-content-center align-items-center" style="height: 100hv;">
+
+    <!-- PRODUCTOS -->
+    <div class="container bg-white rounded shadow p-4 col-xl-4 col-lg-6">
+        <h2 class="w-100 text-center mb-4">Productos</h2>
+
+        <hr style="color:grey" />
+
+
+        <form method="post" id="table_container">
+            <div class="mb-3">
+                <label for="nombreProd" class="form-label">Nombre</label>
+                <input type="text" id="nombreProd" name="name" class="form-control"
+                    placeholder="Ingrese el nombre del producto" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="precioProd" class="form-label">Precio</label>
+                <input type="number" id="precioProd" name="price" class="form-control"
+                    placeholder="Ingrese el valor del producto" min="0" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="imgProd" class="form-label">Url de imagen</label>
+                <input type="text" id="imgProd" name="img" class="form-control"
+                    placeholder="Ingrese la url de la imagen" required>
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100">Agregar Producto</button>
+        </form>
+    </div>
+
+    <!-- Mensajes -->
+    <div class="container bg-white rounded shadow p-4 col-xl-4 col-lg-6">
+        <h2 class="w-100 text-center mb-4">Mensajes</h2>
+
+        <hr style="color:grey" />
+
+        <form method="post">
+            <div class="mb-3">
+                <label for="nombreProd" class="form-label">E-mail</label>
+                <input type="email" id="nombreProd" class="form-control" placeholder="Ingrese el nombre del producto"
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label for="nombreProd" class="form-label">Mensaje</label>
+                <input type="text" class="form-control" placeholder="Ingrese un mensaje" required>
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100">Enviar mensaje</button>
+        </form>
+    </div>
+
+    <script>
+        let socket = new io();
+
+
+        /*----------------
+        TABLA DE PRODUCTOS
+        ----------------*/
+        //creo las logica y variables para la tabla de productos:
+        let formulario_tabla = document.getElementById("table_container");
+        let producto_nombre = document.getElementById("nombreProd");
+        let producto_precio = document.getElementById("precioProd");
+        let producto_imagen = document.getElementById("imgProd");
+
+        //creo la funcion:
+        formulario_tabla.addEventListener("submit", e => {
+            e.preventDefault()
+            //creo el objeto que se va a agregar a la tabla
+            let producto = {
+                name: e.target[0].value,
+                price: e.target[1].value,
+                img: e.target[2].value
+            }
+
+            //creo el emit:
+            socket.emit("tabla", producto)
+            //voy al index.js y agrego el on en connection
+
+            //con esta funcion reseteo el formulario
+            formulario_tabla.reset()
+        });
+
+
+
+    </script>
+</body>
+
+</html>
