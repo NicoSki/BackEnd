@@ -1,0 +1,12 @@
+POST http://localhost:8080/createProducto HTTP/1.1
+Content-Type: application/json
+
+{
+   "nomprod":"algo",
+   "precio": 500,
+   "img": "#"
+}
+
+###
+GET  http://localhost:8080/allProductos HTTP/1.1
+Content-Type: application/json
