@@ -11,13 +11,17 @@ router.post("/createUser", (req, res) => {
     res.redirect("/mainPage");
 })
 
+<<<<<<< HEAD
 // router.get("/registro",(req, res)=>{
 //     res.render("registrarse")
 // })
+=======
+>>>>>>> aad8c196a69872afdf09a23c0f301d300c36d416
 
 /*-----------------------
 ACCESO A LA PAG PRINCIPAL
 ------------------------*/
+<<<<<<< HEAD
 router.get("/mainPage", async (req, res) => {
     let userName = req.session.nombre_usuario;
     let allProd = await Prod.find().sort({ date: "desc" });
@@ -33,6 +37,21 @@ router.post("/createProducto", (req, res) => {
         .then((data) => console.log("Tu producto se añadio de forma exitosa"))
         .catch((error) => console.log(error))
     res.redirect("mainPage")
+=======
+router.get("/mainPage", (req, res) => {
+    let userName = req.session.nombre_usuario;
+    //delete req.session.nombre_usuario;
+    res.render("mainPage", { userName });
+})
+
+//Formulario de productos:
+router.post("/createProducto", async(req, res) => {
+    let producto = req.body;
+    //console.log(producto);
+    const newProducto = new Prod(producto);
+    await newProducto.save();
+    res.redirect("mainPage");
+>>>>>>> aad8c196a69872afdf09a23c0f301d300c36d416
 })
 
 
@@ -47,6 +66,7 @@ router.get("/logout", (req, res) => {
     })
 })
 
+<<<<<<< HEAD
 /*------------------
 TODOS LOS PRODUCTOS
 -------------------*/
@@ -56,4 +76,6 @@ router.get("/allProductos", (req, res) => {
         .catch((error) => console.log(error))
 })
 
+=======
+>>>>>>> aad8c196a69872afdf09a23c0f301d300c36d416
 module.exports = router;

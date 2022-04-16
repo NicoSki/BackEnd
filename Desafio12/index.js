@@ -5,7 +5,10 @@ const path = require("path");
 const engine = require("ejs-mate");
 const express_session = require("express-session");
 const PORT = 8080;
+<<<<<<< HEAD
 // require("../Desafio13");
+=======
+>>>>>>> aad8c196a69872afdf09a23c0f301d300c36d416
 
 //Luego de crear la estructura basica, agrego los middlewares y la carpeta public
 //Settings
