@@ -1,16 +1,16 @@
 //Declaro las variables necesarias para proceder con el desafio
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const express_session = require("express-session");
 const passport = require("passport");
+const path=require("path");
 require("../Desafio12/database");
 const User = require("../Desafio12/models/productos");
 const FacebookStrategy = require('passport-facebook').Strategy;
+const { fork } = require("child_process");
 const PORT = 8080;
-const FACEBOOK_ID = "359103989508388";
-const FACEBOOK_SECRET = "a4057167591f35168d9163219772e2b7";
 let users = [];
-
 
 app.set("view engine", "ejs");
 
@@ -33,8 +33,8 @@ app.use(passport.session());
 
 //Luego creo la estrategia para vincularme con facebook
 passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_ID,
-    clientSecret: FACEBOOK_SECRET,
+    clientID: process.env.FACEBOOK_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: "http://localhost:8080/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'name', 'gender', 'picture.type(large)', 'email']
 },
@@ -123,6 +123,54 @@ passport.deserializeUser(function (id, done) {
 
 //luego de plantear toda la logica, voy a la carpeta del desafio 12 y agrego el schema de los usuarios para luego agregarlos a la db de mongo atlas
 //Creo el views donde voy a mostrar la info del usuario logeado con facebook
+
+/*------------------------------
+             DESAFIO 14:
+--------------------------------*/
+//1ro creo la variable del fork
+//2do creo la conexion a la ruta
+app.get("/api/randoms", (req, res) => {
+    let { cant } = req.query;
+
+    //en caso de que el cant no este definido o que su valor sea negativo
+    if (!cant || cant < 0) {
+        cant = 100000000
+    } else {
+        cant
+    }
+
+    //opero con el child.js
+    const child = fork("child.js");
+    child.send(cant)
+
+    child.on("message", (msg) => {
+        console.log("info de los msg", msg);
+        res.render("random", { num: msg.numeros })
+        //numeros.push(msg.numeros);
+    })
+
+    child.on("exit", (code) => {
+        console.log("El hijo finalizo", code);
+    })
+
+});
+
+//Luego confirmo el funcionamiento creando la ruta:
+//http://localhost:8080/api/randoms?cant=50000000000
+//y la ruta http://localhost:8080/api/randoms?cant=55
+//En donde el query de cant=55 se ejecuta sin problemas
+
+
+//creo info:
+app.get("/info", (req, res) => {
+    let pid = process.pid
+    let path= __dirname
+    res.render("info", {camino:path, pid:pid})
+})
+
+/*------------------------------
+         FIN DESAFIO 14:
+--------------------------------*/
 
 //logout
 app.get("/logout", (req, res) => {

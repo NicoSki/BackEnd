@@ -4,13 +4,8 @@
   "description": "Desafios curso BackEnd",
   "main": "main.js",
   "scripts": {
-<<<<<<< HEAD
     "dev": "node ./Desafio13/index.js",
     "start": "nodemon ./Desafio13/index.js"
-=======
-    "dev": "node ./Desafio12/index.js",
-    "start": "nodemon ./Desafio12/index.js"
->>>>>>> aad8c196a69872afdf09a23c0f301d300c36d416
   },
   "author": "Nicolas Skibicki",
   "license": "ISC",
@@ -25,6 +20,7 @@
     "express-session": "^1.17.2",
     "faker": "^5.5.3",
     "knex": "^0.95.15",
+    "minimist": "^1.2.6",
     "moment": "^2.29.1",
     "mongodb": "^4.5.0",
     "mongoose": "^6.2.10",
