@@ -1,0 +1,20 @@
+2022/04/27 14:50:24 [notice] 11856#3668: signal process started
+2022/04/27 14:50:24 [error] 11856#3668: OpenEvent("Global\ngx_quit_14532") failed (5: Access is denied)
+2022/04/27 14:51:07 [notice] 8428#14680: signal process started
+2022/04/27 14:51:07 [error] 8428#14680: OpenEvent("Global\ngx_quit_14532") failed (5: Access is denied)
+2022/04/27 14:52:08 [notice] 5528#12500: signal process started
+2022/04/27 14:52:08 [error] 5528#12500: OpenEvent("Global\ngx_quit_14532") failed (5: Access is denied)
+2022/04/27 14:52:12 [notice] 13752#10940: signal process started
+2022/04/27 14:52:12 [error] 13752#10940: OpenEvent("Global\ngx_quit_14532") failed (5: Access is denied)
+2022/04/27 14:52:27 [notice] 3444#4008: signal process started
+2022/04/27 14:52:27 [error] 3444#4008: OpenEvent("Global\ngx_stop_14532") failed (5: Access is denied)
+2022/04/27 14:53:09 [notice] 8424#12480: signal process started
+2022/04/27 14:53:09 [error] 8424#12480: OpenEvent("Global\ngx_stop_14532") failed (5: Access is denied)
+2022/04/27 14:53:37 [notice] 7228#12688: signal process started
+2022/04/27 14:53:37 [error] 7228#12688: OpenEvent("Global\ngx_stop_14532") failed (5: Access is denied)
+2022/04/27 14:55:28 [notice] 5408#11500: signal process started
+2022/04/27 14:55:28 [error] 5408#11500: OpenEvent("Global\ngx_reload_14532") failed (5: Access is denied)
+2022/04/27 14:56:13 [notice] 1836#1704: signal process started
+2022/04/27 14:56:13 [error] 1836#1704: OpenEvent("Global\ngx_stop_14532") failed (5: Access is denied)
+2022/04/27 15:06:02 [notice] 8696#6804: signal process started
+2022/04/27 15:06:02 [error] 8696#6804: OpenEvent("Global\ngx_quit_14532") failed (5: Access is denied)
