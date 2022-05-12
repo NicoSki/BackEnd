@@ -1,7 +1,7 @@
 //Para iniciar con el desafio, declaro las variables principales para ejecutar node js
 const express = require("express");
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 let gzip = require("compression");
 let con_Gzip = "Este archivo esta comprimido con gzip";
 let sin_Gzip = "Este archivo no esta comprimido";
