@@ -2,7 +2,7 @@
 //Declaro las variables principales
 const express = require("express");
 const app = express();
-let PORT = 8081;
+let PORT = process.env.PORT || 8081;
 let cluster = require("cluster");
 
 //Middleware
