@@ -9,7 +9,7 @@ require("../Desafio12/database");
 const User = require("../Desafio12/models/productos");
 const FacebookStrategy = require('passport-facebook').Strategy;
 const { fork } = require("child_process");
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 let users = [];
 
 app.set("view engine", "ejs");
@@ -165,7 +165,8 @@ app.get("/api/randoms", (req, res) => {
 app.get("/info", (req, res) => {
     let pid = process.pid
     let path= __dirname
-    res.render("info", {camino:path, pid:pid})
+    let memoria = process.memoryUsage().rss
+    res.render("info", {camino:path, pid:pid, memoria:memoria})
 })
 
 /*------------------------------
