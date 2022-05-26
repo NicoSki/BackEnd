@@ -4,9 +4,9 @@
   "description": "Desafios curso BackEnd",
   "main": "main.js",
   "scripts": {
-    "test": "node ./Desafio16/perfilamiento.js",
-    "dev": "nodemon ./Desafio16/index.js",
-    "start": "node ./Desafio13/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node ./Desafio19/index.js",
+    "start": "nodemon ./Desafio19/index.js"
   },
   "author": "Nicolas Skibicki",
   "license": "ISC",
