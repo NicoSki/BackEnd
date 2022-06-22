@@ -1,0 +1,213 @@
+EXPLICACIÓN DEL DESAFIO:
+Este desafio esta relacionado con el anterior asi que voy a usar las mismas utilides, 
+las cuales estan relacionadas a los usuarios y el crud lo voy a hacer por medio de editor interactivo de GRAPHQL
+la unica diferencia es que no voy a interactuar con la base de datos de mongo:
+
+1-Para aplicar lo visto, creo mis plantillas dinamicas con express-generator
+2-creo la carpeta de utils donde se va a almacenar el contenido de GRAPHQL, ya que es una utilidad/herramienta
+3-Instalo las dependencias de GRAPHQL(graphql y express-graphql)
+4-Dentro de la carpeta de utils, creo una subcarpeta llamada usuarios y dentro de ella un archivo index y otro schema
+(le agregue un nuevo campo llamado fecha para ver cuando fueron las pruebas del crud)
+5-Ahora llevo las funcionalidades de GRAPHQL al app.js para ejecutarlas
+(en este caso el  graphiql del app.use va a ir en true ya voy a usar el editor interactivo)
+
+
+PRUEBAS: Ahora voy al editor y pruebo el crud
+
+/*---------------------------------------------------
+                Crear un nuevo usuario:
+-----------------------------------------------------*/
+Comando en el editor: POST
+
+mutation{crearUsuario(datos:{nombre:"Nombre1", apellido:"Apellido1",edad:20}){
+    id
+    nombre
+    apellido
+    edad
+    fecha
+}}
+
+Respuesta del editor:
+{
+  "data": {
+    "crearUsuario": {
+      "id": "881b986e935407f09355",
+      "nombre": "Nombre3",
+      "apellido": "Apellido3",
+      "edad": "65",
+      "fecha": "18:22:40"
+    }
+  }
+}
+
+
+/*---------------------------------------------------
+                    Listar usuarios:
+-----------------------------------------------------*/
+Comando en editor: GET
+
+{
+  getUsuarios{
+    id
+    nombre
+    apellido
+    edad
+    fecha
+  }
+}
+
+
+Respuesta del editor:
+{
+  "data": {
+    "getUsuarios": [
+      {
+        "id": "f4c9f1cb30b2554b2364",
+        "nombre": "Nombre2",
+        "apellido": "Apellido2",
+        "edad": "63",
+        "fecha": "18:13:56"
+      },
+      {
+        "id": "beceac8d1eff885d0701",
+        "nombre": "Nombre1",
+        "apellido": "Apellido1",
+        "edad": "20",
+        "fecha": "18:22:23"
+      },
+      {
+        "id": "6c4dadee09107f31ff0f",
+        "nombre": "Nombre2",
+        "apellido": "Apellido2",
+        "edad": "20",
+        "fecha": "18:22:30"
+      },
+      {
+        "id": "881b986e935407f09355",
+        "nombre": "Nombre3",
+        "apellido": "Apellido3",
+        "edad": "65",
+        "fecha": "18:22:40"
+      }
+    ]
+  }
+}
+
+
+
+/*---------------------------------------------------
+                Listar usuario particular:
+-----------------------------------------------------*/
+Comando en el editor: GET
+query{
+  getUsuario(id:"6c4dadee09107f31ff0f"){
+    id
+    nombre
+    apellido
+    edad
+    fecha
+  }
+}
+
+Respuesta del editor:
+{
+  "data": {
+    "getUsuario": {
+      "id": "6c4dadee09107f31ff0f",
+      "nombre": "Nombre2",
+      "apellido": "Apellido2",
+      "edad": "20",
+      "fecha": "18:22:30"
+    }
+  }
+}
+
+
+/*---------------------------------------------------
+                Editar usuario:
+-----------------------------------------------------*/
+Comando en el editor: GET
+
+mutation{
+  actualizarUsuario(id:"6c4dadee09107f31ff0f",datos:{nombre:"Modifcado", apellido:"Apellido1",edad:25}){
+    id
+    nombre
+    apellido
+    edad
+    fecha
+  }
+}
+
+Respuesta del editor:
+{
+  "data": {
+    "actualizarUsuario": {
+      "id": "6c4dadee09107f31ff0f",
+      "nombre": "Modifcado",
+      "apellido": "Apellido1",
+      "edad": "25",
+      "fecha": "18:25:25"
+    }
+  }
+}
+
+
+
+/*---------------------------------------------------
+                Eliminar usuario:
+-----------------------------------------------------*/
+Comando en el editor: GET
+mutation{
+   eliminarUsuario(id:"6c4dadee09107f31ff0f"){
+     id
+     nombre
+     apellido
+     edad
+     fecha
+   }
+ }
+
+ Respuesta del editor:
+ {
+  "data": {
+    "eliminarUsuario": {
+      "id": "6c4dadee09107f31ff0f",
+      "nombre": "Modifcado",
+      "apellido": "Apellido1",
+      "edad": "25",
+      "fecha": "18:25:25"
+    }
+  }
+}
+
+
+/*---------------------------------------------------
+    Listado de usuarios finales despues del crud
+-----------------------------------------------------*/
+{
+  "data": {
+    "getUsuarios": [
+      {
+        "id": "f4c9f1cb30b2554b2364",
+        "nombre": "Nombre2",
+        "apellido": "Apellido2",
+        "edad": "63",
+        "fecha": "18:13:56"
+      },
+      {
+        "id": "beceac8d1eff885d0701",
+        "nombre": "Nombre1",
+        "apellido": "Apellido1",
+        "edad": "20",
+        "fecha": "18:22:23"
+      },
+      {
+        "id": "881b986e935407f09355",
+        "nombre": "Nombre3",
+        "apellido": "Apellido3",
+        "edad": "65",
+        "fecha": "18:22:40"
+      }
+    ]
+  }
+}
