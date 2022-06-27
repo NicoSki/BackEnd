@@ -1,0 +1,105 @@
+Para la resolucion de este desafio opte por elegir el frameworK --> SAILS
+
+*Creación:
+
+Para proceder con la creación, realizo lo sig:
+1-Ejecuto los sig comandos para crear el proyecto: npm -g install sails y despues sails new usuariosapp (selecciono la opcion que dice EMPTY)
+2-Ejecuto el comanodo --> sails lift, para ver que funcione correctamente
+3-Ahora genero mi api de usuarios con el comando --> sails generate api usuarios 
+4-Ejecuto el comando del paso 2 y selecciono la opción de alter
+5-Voy al archivo de config/models.js y descomento la linea 56
+6-Esto funcina correctamente ya que al ingresar a la url: http://localhost:6060/usuarios , me retorna un array vacio
+
+
+*Base de datos:
+En mi caso voy a usar mongoDB como base de datos, para ello prodeco a hacer lo sig:
+
+1-Voy a la carpeta de config/datasotres.js donde voy a establecer mi conexion a mongoDB
+2-Luego de declarar la conexion con mongo, en un nueva terminal inicio mongo con su respectivo comando
+3-Ahora ejecuto en la terminal el comanodo --> npm i sails-mongo
+
+
+*Persistencia de los datos:
+1-Ahora voy a api/models y entro a Usuarios.js y agrego la estructura de los datos
+2-Ejecuto el comando --> sails lift
+
+
+*Pruebas:
+Todas las pruebas se van a realizar por medio de postman y luego voy a usar blueprint
+No es necesario que cree el crud ya que sails lo trae por cuenta propia
+
+
+Prueba 1:
+URL: http://localhost:6060/usuarios 
+METODO: GET
+
+RTA: Un array vacio
+
+Prueba 2:
+URL: http://localhost:6060/usuarios 
+METODO: POST
+
+Uso form-data en postman con los campos definidos en api/models/Usuarios
+
+RTA: 
+{
+    "createdAt": 1656362859260,
+    "updatedAt": 1656362859260,
+    "id": "62ba176bce3d2434f885829e",
+    "nombre": "Usuario1",
+    "apellido": "Apellido de Usuario",
+    "edad": 20,
+    "fecha": ""
+}
+
+Tambien me lo añadio a la base de mongo
+
+
+Prueba 3:
+URL: http://localhost:6060/usuarios/62ba176bce3d2434f885829e
+METODO: PUT
+RTA: 
+{
+    "createdAt": 1656362859260,
+    "updatedAt": 1656363021402,
+    "id": "62ba176bce3d2434f885829e",
+    "nombre": "Usuario Modificado",
+    "apellido": "Apellido Modificado",
+    "edad": 35,
+    "fecha": "27/06/2022"
+}
+
+
+Prueba 4:
+URL: http://localhost:6060/usuarios/62ba176bce3d2434f885829e
+METODO: DELETE
+RTA: 
+{
+    "createdAt": 1656362859260,
+    "updatedAt": 1656363021402,
+    "id": "62ba176bce3d2434f885829e",
+    "nombre": "Usuario Modificado",
+    "apellido": "Apellido Modificado",
+    "edad": 35,
+    "fecha": "27/06/2022"
+}
+
+--> Al ir a la url de usuarios, me devuelve un array vacio, verificando que se elimino el usuario
+
+*Por ultimo voy a probar por medio de BLUEPRINT(mediante la url)
+Agrego un nuevo usuario a modo de prueba:
+
+URL: http://localhost:6060/usuarios/create?nombre=Usuario Con BluePrint&apellido=Apellido del usuario&edad=27
+
+RTA: 
+{
+  "createdAt": 1656363304791,
+  "updatedAt": 1656363304791,
+  "id": "62ba1928ce3d2434f885829f",
+  "nombre": "Usuario Con BluePrint",
+  "apellido": "Apellido del usuario",
+  "edad": 27,
+  "fecha": ""
+}
+
+-->Incluso con el metodo find/id, puedo encontrar al usuario en particular
